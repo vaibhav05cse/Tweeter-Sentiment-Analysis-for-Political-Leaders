@@ -1,0 +1,180 @@
+#Importing Libraries
+import tweepy
+from textblob import TextBlob
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+#Part-1: Getting Authorization
+#Getting authorization
+consumer_key = 'XXXXXXXXXXXXXXXX'
+consumer_key_secret = 'XXXXXXXXXXXXXXXX'
+access_token = 'XXXXXXXXXXXXXXXX'
+access_token_secret = 'XXXXXXXXXXXXXXXX'
+auth = tweepy.OAuthHandler(consumer_key, consumer_key_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth, wait_on_rate_limit=True)
+
+#Part-2: Tweets on Narendra Modi
+
+#Seaching
+query1 = 'modi'
+max_tweets = 1000
+searched_tweets_modi = [status for status in tweepy.Cursor(api.search, q=query1).items(max_tweets)]
+
+#Analyzing Sentiments
+pos1 = 0
+neg1 = 0
+neu1 = 0
+for t1 in searched_tweets_modi:
+    analysis = TextBlob(t1.text)
+    if analysis.sentiment[0]>0:
+       pos1 = pos1 +1
+    elif analysis.sentiment[0]<0:
+       neg1 = neg1 + 1
+    else:
+       neu1 = neu1 + 1
+print("Total Positive = ", pos1)
+print("Total Negative = ", neg1)
+print("Total Neutral = ", neu1)
+
+#Visualizing sentiments
+labels = 'Positive', 'Negative', 'Neutral'
+sizes = [pos1, neg1, neu1]
+colors = ['gold', 'yellowgreen', 'lightcoral']
+explode = (0.1, 0, 0)  # explode 1st slice
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.title('Narendra Modi')
+plt.axis('equal')
+plt.show()
+
+
+#Part-3: Tweets on Rahul Gandhi
+#Seaching
+query2 = 'rahul gandhi'
+searched_tweets_rahul = [status for status in tweepy.Cursor(api.search, q=query2).items(max_tweets)]
+
+#Analyzing Sentiments
+pos2 = 0
+neg2 = 0
+neu2 = 0
+for t2 in searched_tweets_rahul:
+    analysis = TextBlob(t2.text)
+    if analysis.sentiment[0]>0:
+       pos2 = pos2 +1
+    elif analysis.sentiment[0]<0:
+       neg2 = neg2 + 1
+    else:
+       neu2 = neu2 + 1
+print("Total Positive = ", pos2)
+print("Total Negative = ", neg2)
+print("Total Neutral = ", neu2)
+
+#Visualizing Sentiments
+labels = 'Positive', 'Negative', 'Neutral'
+sizes = [pos2, neg2, neu2]
+colors = ['gold', 'yellowgreen', 'lightcoral']
+explode = (0.1, 0, 0)  # explode 1st slice
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.title('Rahul Gandhi')
+plt.axis('equal')
+plt.show()
+
+#Part-4: Tweets on Mamta Banaejee
+#Searching
+query3 = 'mamta banerjee'
+searched_tweets_mamta = [status for status in tweepy.Cursor(api.search, q=query3).items(max_tweets)]
+
+#Analyzing Sentiments
+pos3 = 0
+neg3 = 0
+neu3 = 0
+for t3 in searched_tweets_mamta:
+    analysis = TextBlob(t3.text)
+    if analysis.sentiment[0]>0:
+       pos3 = pos3 +1
+    elif analysis.sentiment[0]<0:
+       neg3 = neg3 + 1
+    else:
+       neu3 = neu3 + 1
+print("Total Positive = ", pos3)
+print("Total Negative = ", neg3)
+print("Total Neutral = ", neu3)
+
+#Visualizing Sentiments
+labels = 'Positive', 'Negative', 'Neutral'
+sizes = [pos3, neg3, neu3]
+colors = ['gold', 'yellowgreen', 'lightcoral']
+explode = (0.1, 0, 0)  # explode 1st slice
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.title('Mamta Banerjee')
+plt.axis('equal')
+plt.show()
+
+#Part-5: Tweets on Mayawati
+#Searching
+query4 = 'mayawati'
+searched_tweets_maya = [status for status in tweepy.Cursor(api.search, q=query4).items(max_tweets)]
+
+#Analyzing Sentiments
+pos4 = 0
+neg4 = 0
+neu4 = 0
+for t4 in searched_tweets_maya:
+    analysis = TextBlob(t4.text)
+    if analysis.sentiment[0]>0:
+       pos4 = pos4 +1
+    elif analysis.sentiment[0]<0:
+       neg4 = neg4 + 1
+    else:
+       neu4 = neu4 + 1
+print("Total Positive = ", pos4)
+print("Total Negative = ", neg4)
+print("Total Neutral = ", neu4)
+
+#Visualizing Sentiments
+labels = 'Positive', 'Negative', 'Neutral'
+sizes = [pos4, neg4, neu4]
+colors = ['gold', 'yellowgreen', 'lightcoral']
+explode = (0.1, 0, 0)  # explode 1st slice
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.title('Mayawati')
+plt.axis('equal')
+plt.show()
+
+
+#Part-6: Visualizing all plots together
+plt.figure(0)
+labels = 'Positive', 'Negative', 'Neutral'
+size = [pos1, neg1, neu1]
+colors = ['gold', 'yellowgreen', 'lightcoral']
+explode = (0.1, 0, 0)  # explode 1st slice
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.title('Narendra Modi')
+plt.axis('equal')
+plt.figure(1)
+labels = 'Positive', 'Negative', 'Neutral'
+sizes = [pos2, neg2, neu2]
+colors = ['gold', 'yellowgreen', 'lightcoral']
+explode = (0.1, 0, 0)  # explode 1st slice
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.title('Rahul Gandhi')
+plt.axis('equal')
+plt.figure(2)
+labels = 'Positive', 'Negative', 'Neutral'
+sizes = [pos3, neg3, neu3]
+colors = ['gold', 'yellowgreen', 'lightcoral']
+explode = (0.1, 0, 0)  # explode 1st slice
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.title('Mamta Banerjee')
+plt.axis('equal')
+plt.figure(3)
+labels = 'Positive', 'Negative', 'Neutral'
+sizes = [pos4, neg4, neu4]
+colors = ['gold', 'yellowgreen', 'lightcoral']
+explode = (0.1, 0, 0)  # explode 1st slice
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.title('Mayawati')
+plt.axis('equal')
+plt.show()
+
